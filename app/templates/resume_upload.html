@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Resume Upload</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <style>
+        /* Base Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f6f7;
+            margin: 0;
+            padding: 0;
+            color: #2c3e50;
+        }
+
+        /* Menu Bar Styles */
+        .menu-bar {
+            background-color: #2c3e50;
+            padding: 15px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .menu-options ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+        }
+        .menu-options li {
+            margin-left: 30px;
+        }
+
+        /* Links */
+        a {
+            color: #ecf0f1;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: all 0.3s ease-in-out;
+        }
+        a:hover {
+            background-color: #34495e;
+            border-color: #ecf0f1;
+        }
+
+        /* Logo */
+        .logo {
+            font-family: 'Segoe UI Black', sans-serif;
+            color: #ecf0f1;
+            font-size: 24px;
+        }
+
+        /* Header */
+        h1 {
+            color: #ecf0f1;
+            padding: 20px;
+            background-color: #34495e;
+            margin: 0;
+            margin-bottom: 50px;
+            text-align: center;
+        }
+
+        /* Form Styles */
+        form {
+            width: 50%;
+            margin: 0 auto;
+        }
+        form input[type="file"], form input[type="submit"] {
+            display: block;
+            margin: 20px auto;
+            padding: 10px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        form input[type="submit"] {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        form input[type="submit"]:hover {
+            background-color: #34495e;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Menu Bar -->
+    <div class="menu-bar">
+        <div class="menu-options">
+            <ul>
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('resume_upload') }}">Resume Upload</a></li>
+                <li><a href="{{ url_for('profiles') }}">Profiles</a></li>
+                <li><a href="{{ url_for('skill_search') }}">Skill Search</a></li>
+                
+            </ul>
+        </div>
+    </div>
+
+    <h1>Resume Upload</h1>
+    <form method="POST" enctype="multipart/form-data">
+        <input type="file" name="resume">
+        <input type="submit" value="Upload">
+    </form>
+
+    <!-- JavaScript -->
+    <script>
+           // Get the query parameter from the URL
+           const urlParams = new URLSearchParams(window.location.search);
+        const message = urlParams.get("message");
+
+        // Show the modal with the appropriate message
+        if (message === "success") {
+            alert("Successfully attached");
+        } else if (message === "error") {
+            alert("File format not supported");
+        }
+
+        $(document).ready(function () {
+            $('form').on('submit', function (event) {
+                event.preventDefault();
+                let formData = new FormData(this);
+                $.ajax({
+                    url: '/process_pdf',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (data) {
+                        if (data.status === 'not_a_resume') {
+                            alert('Attached file is not a resume');
+                            window.location.href = "/"; // Redirect to the resume upload page
+                        } else if (data.status === 'success') {
+                            alert('Successfully Uploaded');
+                        } else {
+                            alert('Fileformat not supported. Please try again.');
+                        }
+                    },
+                    error: function () {
+                        alert('An error occurred. Please try again.');
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+
+</html>

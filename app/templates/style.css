@@ -1,0 +1,44 @@
+/* Reset default margin and padding for all elements */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Apply styles to the body */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #343A40; /* Dark gray background */
+    color: #FFFFFF; /* White text */
+}
+
+/* Style the header */
+header {
+    background-color: #007BFF; /* Deep Sky Blue header */
+    padding: 20px;
+    text-align: center;
+}
+
+/* Style the heading inside the header */
+header h1 {
+    color: #FFFFFF; /* White heading text */
+}
+
+/* Style content container */
+.container {
+    background-color: #F8F9FA; /* Light Gray content background */
+    padding: 20px;
+    margin: 20px;
+    border-radius: 5px;
+}
+
+/* Style links */
+a {
+    color: #17A2B8; /* Turquoise links */
+    text-decoration: none;
+}
+
+/* Style links on hover */
+a:hover {
+    text-decoration: underline;
+}

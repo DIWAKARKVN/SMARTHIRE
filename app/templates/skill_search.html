@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skill Search</title>
+    <style>
+        /* Base Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f6f7;
+            margin: 0;
+            padding: 0;
+            color: #2c3e50;
+        }
+
+        /* Header */
+        h1, h2 {
+            color: #ecf0f1;
+            padding: 20px;
+            background-color: #34495e;
+            margin: 0;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* Form Styling */
+        form {
+            margin: 20px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        label {
+            margin-bottom: 10px;
+        }
+        input {
+            padding: 10px;
+            width: 300px;
+            border: 1px solid #e1e1e1;
+            border-radius: 4px;
+        }
+        button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            border: none;
+            background-color: #34495e;
+            color: #ecf0f1;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #2c3e50;
+        }
+
+        /* Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #e1e1e1;
+            text-align: left;
+        }
+        th {
+            background-color: #ecf0f1;
+            color: #34495e;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        /* Results and Candidate Styling */
+        #results, #selected_candidate {
+            padding: 20px;
+            background-color: #ffffff;
+            margin: 20px 0;
+            border: 1px solid #e1e1e1;
+            border-radius: 4px;
+        }
+        #selected_candidate h2 {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    
+    <h1>Skill Search</h1>
+
+    <!-- Skill Search Form -->
+    <form action="/skill_search" method="POST">
+        <label for="skills">Enter Skills (separated by commas):</label>
+        <input type="text" name="skills" id="skills" placeholder="e.g., Python, JavaScript, SQL" required>
+        <button type="submit">Search</button>
+    </form>
+
+    <!-- Displaying Search Results -->
+    <div id="results">
+        <h2>Search Results:</h2>
+        {% if matched_resumes %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Filename</th>
+                        <th>Matching Skills Count</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for resume in matched_resumes %}
+                        <tr>
+                            <td>{{ resume.filename }}</td>
+                            <td>{{ resume.count }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No matches found.</p>
+        {% endif %}
+    </div>
+
+    <!-- Analyze Form -->
+    <form action="/analyze" method="POST">
+        <label for="candidate_input">Input for Candidate Selection:</label>
+        <input type="text" name="candidate_input" id="candidate_input" placeholder="e.g., Python developer" required>
+        <button type="submit">Analyze</button>
+    </form>
+
+    <!-- Display Selected Candidate Filename -->
+    <div id="selected_candidate">
+        <h2>Selected Candidate:</h2>
+        <p>{{ selected_candidate }}</p>
+    </div>
+
+
+</body>
+</html>

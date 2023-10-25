@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home</title>
+    <style>
+        /* Apply styles to the body */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f6f7;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Style the menu bar */
+        .menu-bar {
+            background-color: #2c3e50;
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Style the logo */
+        .logo {
+            font-family: 'Segoe UI Black', sans-serif;
+            color: #ecf0f1;
+            font-size: 24px;
+        }
+
+        /* Style the menu options */
+        .menu-options ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+        }
+
+        .menu-options li {
+            margin-left: 30px;
+        }
+
+        /* Style links */
+        a {
+            color: #ecf0f1;
+            text-decoration: none;
+            padding: 8px 16px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        /* Style links on hover */
+        a:hover {
+            background-color: #34495e;
+            text-decoration: none;
+            border: 1px solid #ecf0f1;
+        }
+    </style>
+</head>
+<body>
+    <div class="menu-bar">
+        <h1 class="logo">SMARTHIRE</h1>
+        <div class="menu-options">
+            <ul>
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('resume_upload') }}">Resume Upload</a></li>
+                <li><a href="{{ url_for('profiles') }}">Profiles</a></li>
+                <li><a href="{{ url_for('skill_search') }}">Skill Search</a></li>
+                
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
